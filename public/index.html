@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#fff8fb">
+  <meta name="description" content="Discover people, make mutual connections.">
+  <title>Coy Discover</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Coy Discover home">coy<span>.</span></a>
+      <div class="topbar-right">
+        <span class="demo-label"><span class="online-dot"></span> Demo mode</span>
+        <button class="icon-button" id="reset-button" title="Reset demo" aria-label="Reset demo">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 2.64-6.36L3 8m0-5v5h5"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <section class="intro-row">
+        <div>
+          <p class="eyebrow">MEET SOMEONE NEW</p>
+          <h1>Good connections<br><span>start with a hello.</span></h1>
+          <p class="intro-copy">Explore profiles and let mutual interest do the talking.</p>
+        </div>
+        <div class="sparkle" aria-hidden="true">✳</div>
+      </section>
+
+      <nav class="tabs" aria-label="Main navigation">
+        <button class="tab" data-tab="home"><span class="tab-icon">⌂</span>Home</button>
+        <button class="tab active" data-tab="discover"><span class="tab-icon">♡</span>Discover</button>
+        <button class="tab" data-tab="matches"><span class="tab-icon">✦</span>Matches <span id="match-count" class="count-pill">0</span></button>
+      </nav>
+
+      <section id="home-view" class="view hidden">
+        <div class="blank-home">
+          <div class="blank-home-icon">c<span>.</span></div>
+          <h2>Welcome to Coy</h2>
+          <p>Your home tab is intentionally kept simple for this assignment.</p>
+        </div>
+      </section>
+
+      <section id="discover-view" class="view">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">YOUR NEXT CONNECTION</p>
+            <h2>Discover</h2>
+          </div>
+          <span id="remaining-count" class="subtle-count">30 profiles</span>
+        </div>
+
+        <div id="feed-area" class="feed-area">
+          <article id="profile-card" class="profile-card" aria-live="polite">
+            <div class="photo-wrap">
+              <img id="profile-photo" class="profile-photo" src="" alt="Profile photo">
+              <div class="photo-shade"></div>
+              <div class="photo-topline"><span class="verified-dot">✓</span> COMMUNITY PROFILE</div>
+              <div class="photo-caption">
+                <h3><span id="profile-name"></span><span class="age-separator">, </span><span id="profile-age"></span></h3>
+                <p><span class="pin-icon">⌖</span><span id="profile-city"></span></p>
+              </div>
+            </div>
+            <div class="profile-details">
+              <p id="profile-bio" class="bio"></p>
+              <div id="profile-interests" class="interest-list"></div>
+            </div>
+            <div class="card-actions">
+              <button id="pass-button" class="action-button pass-button" aria-label="Pass on profile">
+                <span>×</span>
+              </button>
+              <div class="action-hint">PASS <span>·</span> LIKE</div>
+              <button id="like-button" class="action-button like-button" aria-label="Like profile">
+                <span>♥</span>
+              </button>
+            </div>
+          </article>
+          <div id="empty-state" class="empty-state hidden">
+            <div class="empty-heart">♡</div>
+            <h3>You've seen everyone for now</h3>
+            <p>You've reached the end of this demo feed. Reset the demo to explore profiles again.</p>
+            <button id="empty-reset-button" class="primary-button">Start again</button>
+          </div>
+        </div>
+        <p class="privacy-note"><span>♢</span> Only mutual likes become matches. Private interest stays private.</p>
+      </section>
+
+      <section id="matches-view" class="view hidden">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">IT'S MUTUAL</p>
+            <h2>Your matches</h2>
+          </div>
+          <span id="matches-total" class="subtle-count">0 connections</span>
+        </div>
+        <div id="matches-list" class="matches-list"></div>
+        <div id="matches-empty" class="matches-empty">
+          <div class="empty-heart">♡</div>
+          <h3>Your matches will appear here</h3>
+          <p>When you like someone who has also liked you, you'll find your connection here.</p>
+          <button id="go-discover-button" class="secondary-button">Explore Discover</button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span>Made for meaningful connections.</span>
+      <span>COY DISCOVER · DEMO</span>
+    </footer>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <div id="match-modal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="match-title">
+    <div class="modal-backdrop"></div>
+    <div class="match-dialog">
+      <button id="close-match" class="modal-close" aria-label="Close match dialog">×</button>
+      <div class="match-confetti" aria-hidden="true">✦</div>
+      <p class="eyebrow">A LITTLE SPARK</p>
+      <h2 id="match-title">It's a match!</h2>
+      <p class="match-subtitle">You both liked each other. That's a lovely start.</p>
+      <div class="match-avatars">
+        <img id="match-avatar" src="" alt="">
+        <div class="match-heart">♥</div>
+        <div class="you-avatar">Y<span>OU</span></div>
+      </div>
+      <h3 id="match-name"></h3>
+      <p class="match-description">You and this person have mutual interest.</p>
+      <button id="see-matches-button" class="primary-button full-button">See my matches</button>
+      <button id="keep-discovering-button" class="text-button">Keep discovering</button>
+    </div>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>
